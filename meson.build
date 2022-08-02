@@ -9,7 +9,7 @@ project(
 curl = dependency('libcurl')
 cjson = dependency('libcjson')
 req = library(
-    'hyfetch', sources: ['src/Request.c'],
+    'hyfetch', sources: ['src/Request.c', 'src/Config.c'],
     install: true,
     dependencies: [curl])
 

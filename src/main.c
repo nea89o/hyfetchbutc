@@ -3,11 +3,22 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include "Request.h"
+#include "Config.h"
 
 int main() {
     puts("Hello, World");
     curl_global_init(CURL_GLOBAL_DEFAULT);
     CURL *curl = curl_easy_init();
+
+    HyConfig *conf = load_config("example.conf");
+    if (conf == NULL) {
+        puts("no config");
+        return 4;
+    }
+    printf("Api-Key: '%s'\n", conf->api_key);
+    for (Option *ptr = conf->options; ptr; ptr = ptr->next) {
+        printf("Option: '%s'\n", ptr->name);
+    }
 
     if (!curl) {
         puts("Failed to initialize curl");
